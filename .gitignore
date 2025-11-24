@@ -1,0 +1,87 @@
+## Build results
+bin/
+obj/
+out/
+publish/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+*.code-workspace
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## ASP.NET Core logs / temp
+logs/
+*.log
+*.trace
+*.dmp
+
+## .NET secret manager
+secrets.json
+
+## Environment files
+.env
+*.env
+
+## Docker
+docker-compose.override.yml
+**/Dockerfile.deps
+**/Dockerfile-dev
+**/.dockerignore
+
+## OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Node (если будут фронтовые панели мониторинга)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+## Packages
+*.nupkg
+packages/
+*.snk
+
+## Coverage / analysis tools
+coverage/
+*.coverage
+*.coveragexml
+TestResults/
+
+## EF migrations backups
+*.jfm
+**/Migrations/*Designer.cs
+
+## Cache / temporary files
+tmp/
+temp/
+.nuget/
+.jetbrains/
+
+## Terraform / Kubernetes (если будете использовать)
+*.tfstate
+*.tfstate.backup
+.terraform/
+.kube/
+
+## Python tooling (если будет нагрузочное тестирование через python)
+__pycache__/
+*.pyc
+
+## Certificates
+*.pfx
+*.pem
+*.crt
+*.key
