@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # RabbitMQ - Message Broker для очередей сообщений
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: winton-rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"   # AMQP порт
+      - "15672:15672" # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - notification-network
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PostgreSQL - база данных для хранения состояния уведомлений
+  postgres:
+    image: postgres:16-alpine
+    container_name: winton-postgres
+    environment:
+      POSTGRES_DB: notificationdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - notification-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  notification-network:
+    driver: bridge
+    name: winton-notification-network
+
+volumes:
+  rabbitmq_data:
+    name: winton-rabbitmq-data
+  postgres_data:
+    name: winton-postgres-data
+
