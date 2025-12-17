@@ -42,6 +42,42 @@ services:
       timeout: 5s
       retries: 5
 
+  email-service:
+    build:
+      context: ./email-service
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: admin
+      RABBITMQ_PASS: admin123
+    networks:
+      - notification-network
+
+  sms-service:
+    build:
+      context: ./sms-service
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: admin
+      RABBITMQ_PASS: admin123
+    networks:
+      - notification-network
+
+  push-service:
+    build:
+      context: ./push-service
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: admin
+      RABBITMQ_PASS: admin123
+    networks:
+      - notification-network
+
 networks:
   notification-network:
     driver: bridge
